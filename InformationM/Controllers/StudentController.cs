@@ -9,6 +9,7 @@ namespace InformationM.Controllers
 {
     public class StudentController : Controller
     {
+        InformationMEntities db = new InformationMEntities();
         // GET: Student
         public ActionResult Index()
         {
@@ -18,10 +19,13 @@ namespace InformationM.Controllers
         {
             return View();
         }
+        public ActionResult DatabaseChange()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Home(FormCollection form)
         {
-            InformationMEntities db = new InformationMEntities();
             Student Model = new Student();
             Model.Name = form["name"].Trim();
             Model.SurName = form["SurName"].Trim();
