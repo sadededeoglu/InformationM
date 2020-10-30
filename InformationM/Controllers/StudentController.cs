@@ -9,12 +9,6 @@ namespace InformationM.Controllers
 {
     public class StudentController : Controller
     {
-        
-        // GET: Student
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult Home()
         {
             return View();
@@ -36,6 +30,14 @@ namespace InformationM.Controllers
             InformationMEntities db = new InformationMEntities();
             var Database = db.Students.ToList();
             return View(Database);
+        }
+        public ActionResult Delete()
+        {
+            return View();
+        }
+        public ActionResult Edit()
+        {
+            return View();
         }
 
     }
