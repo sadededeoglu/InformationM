@@ -31,9 +31,13 @@ namespace InformationM.Controllers
             var Database = db.Students.ToList();
             return View(Database);
         }
-        public ActionResult Delete()
+        public ActionResult Delete(int Id)
         {
-            return View();
+            InformationMEntities db = new InformationMEntities();
+            Student student = db.Students.Find(Id);
+            db.Students.Remove(student);
+            db.SaveChanges();
+            return RedirectToAction("Home");
         }
         public ActionResult Edit()
         {
