@@ -1,6 +1,7 @@
 ﻿using InformationM.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,17 +31,41 @@ namespace InformationM.Controllers
             var Database = db.Students.ToList();
             return View(Database);
         }
+        public ActionResult Edit(int Id)
+        {
+            Student student = db.Students.Find(Id);
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult Edit(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(student).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("DatabaseChange");
+            }
+            return View(student);
+        }
         public ActionResult Delete(int? Id)
         {
-             Student student = db.Students.Find(Id);
-             db.Students.Remove(student);
-             db.SaveChanges();
-             return RedirectToAction("Home");
+            Student student = db.Students.Find(Id);
+            return View(student);
+            /*Student student = db.Students.Find(Id);
+            db.Students.Remove(student);
+            db.SaveChanges();
+            return RedirectToAction("Home");*/
         }
-        public ActionResult Edit(int? Id)
+        [HttpPost]
+        public ActionResult Delete(Student student)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                db.Entry(student).State = EntityState.Deleted;
+                db.SaveChanges();
+                return RedirectToAction("DatabaseChange");
+            }
+            return View(student);
         }
-
     }
 }
