@@ -9,6 +9,7 @@ namespace InformationM.Controllers
 {
     public class StudentController : Controller
     {
+        InformationMEntities db = new InformationMEntities();
         public ActionResult Home()
         {
             return View();
@@ -16,7 +17,6 @@ namespace InformationM.Controllers
         [HttpPost]
         public ActionResult Home(FormCollection form)
         {
-            InformationMEntities db = new InformationMEntities();
             Student Model = new Student();
             Model.Name = form["name"].Trim();
             Model.SurName = form["SurName"].Trim();
@@ -27,19 +27,17 @@ namespace InformationM.Controllers
         }
         public ActionResult DatabaseChange()
         {
-            InformationMEntities db = new InformationMEntities();
             var Database = db.Students.ToList();
             return View(Database);
         }
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(int? Id)
         {
-            InformationMEntities db = new InformationMEntities();
-            Student student = db.Students.Find(Id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("Home");
+             Student student = db.Students.Find(Id);
+             db.Students.Remove(student);
+             db.SaveChanges();
+             return RedirectToAction("Home");
         }
-        public ActionResult Edit()
+        public ActionResult Edit(int? Id)
         {
             return View();
         }
