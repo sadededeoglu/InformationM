@@ -51,10 +51,7 @@ namespace InformationM.Controllers
         {
             Student student = db.Students.Find(Id);
             return View(student);
-            /*Student student = db.Students.Find(Id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("Home");*/
+           
         }
         [HttpPost]
         public ActionResult Delete(Student student)
